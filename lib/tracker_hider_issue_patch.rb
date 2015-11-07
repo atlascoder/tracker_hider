@@ -15,7 +15,14 @@ module TrackerHiderIssuePatch
   module ClassMethods
     
     def visible_condition_with_tracker_hider (user, *args)
-      visible_condition_without_tracker_hider(user, *args) + " AND (tracker_id NOT IN (SELECT tracker_id from hidden_trackers WHERE project_id=issues.project_id AND user_id=#{user.id}))"
+      visible_condition_without_tracker_hider(user, *args) +
+        "AND NOT EXISTS( "+
+          "SELECT * from hidden_trackers WHERE " + 
+              "(project_id IN (SELECT project_id FROM enabled_modules WHERE name='tracker_hider'))" +
+              " AND issues.project_id=project_id" +
+              " AND issues.tracker_id=tracker_id" +
+              " AND user_id=#{user.id}" +
+        ")"
     end
     
   end

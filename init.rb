@@ -7,8 +7,8 @@ Redmine::Plugin.register :tracker_hider do
   author 'Anton Titkov'
   description 'The plugin allows to hide specified tracker for cpecified users within a project'
   version '0.0.1'
-  url 'http://atlascoder.io/redmine/plugins/hider_plugin'
-  author_url 'http://atlascoder.io/'
+  url 'https://github.com/atlascoder/tracker_hider'
+  author_url 'https://github.com/atlascoder'
   
   project_module :tracker_hider do
     permission :manage_tracker_hiders, {:tracker_hider => [:add_hider, :remove]}

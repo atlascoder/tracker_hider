@@ -1,3 +1,23 @@
 = tracker_hider
 
-Description goes here
+The plugin is created to get a functionality allowing to hide issues of specified trackers from specified users within a project.
+
+INSTALLATION
+
+Follow standard procedure to install the plugin.
+Migration is required.
+
+USE
+
+1. Enable permittion ('Roles ad permissions' in Administration panel) for your manager to make him able to make hidings for trackers
+2. Enable the module 'Tracker hider' in selected projects
+3. Manage hiding rules in Tabview 'Tracker curtains' in Project settings
+
+
+The plugin was created with the environment:
+
+  Redmine version                3.0.4.stable
+  Ruby version                   2.2.1-p85 (2015-02-26) [x86_64-linux]
+  Rails version                  4.2.3
+
+but due its simplicicty it highly possible to use in various configurations.
