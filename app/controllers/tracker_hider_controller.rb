@@ -9,19 +9,42 @@ class TrackerHiderController < ApplicationController
   end
   
   def add_hider
-    ht = HiddenTracker.where(project_id: @project.id, tracker_id: params[:tracker_id], user_id: params[:user_id])
-    if ht.count > 0 then
-      flash[:alert] = t(:tracker_hider_already_exists)
-    else
-      ht = HiddenTracker.new
-      ht.project = @project
-      ht.user = User.find(params[:user_id])
-      ht.tracker = Tracker.find(params[:tracker_id])
-      if ht.save then
-        flash[:notice] = t(:tracker_hider_created)
+    if params[:object_id] =~ /user_(\d+)/ then
+      user_id = $1
+      
+      if HiddenTracker.where(project_id: @project.id, tracker_id: params[:tracker_id], user_id: user_id).empty? then 
+        ht = HiddenTracker.new
+        ht.project = @project
+        ht.user = User.find(user_id)
+        ht.tracker = Tracker.find(params[:tracker_id])
+        if ht.save then
+          flash[:notice] = t(:tracker_hider_created)
+        else
+          flash[:alert] = t(:tracker_hider_isnt_created_due_errors)
+        end
       else
-        flash[:alert] = t(:tracker_hider_isnt_created_due_errors)
+        flash[:alert] = t(:tracker_hider_already_exists)
       end
+      
+    elsif params[:object_id] =~ /role_(\d+)/ then
+      role_id = $1
+
+      if HiddenTracker.where(project_id: @project.id, tracker_id: params[:tracker_id], role_id: role_id).empty? then 
+        ht = HiddenTracker.new
+        ht.project = @project
+        ht.role = Role.find(role_id)
+        ht.tracker = Tracker.find(params[:tracker_id])
+        if ht.save then
+          flash[:notice] = t(:tracker_hider_created)
+        else
+          flash[:alert] = t(:tracker_hider_isnt_created_due_errors)
+        end
+      else
+        flash[:alert] = t(:tracker_hider_already_exists)
+      end
+      
+    else
+      flash[:alert] = t(:tracker_hider_isnt_created_due_errors)
     end
     
     redirect_to settings_project_path(id: params[:project_id], tab: 'tracker_hider')

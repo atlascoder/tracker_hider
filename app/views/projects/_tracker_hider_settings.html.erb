@@ -1,9 +1,14 @@
 <p>
 	<%= form_tag(add_tracker_hider_path(@project), method: :post) do %>
-		<select name="user_id">
+		<select name="object_id">
+				<option value="roles" disabled="true"><i><%= t(:list_roles)%></i></option>
+			<% Role.all.each do |role| %>
+				<option value="role_<%=role.id%>"><%= role.name %></option>
+			<% end %>
+				<option value="users" disabled="true"><i><%= t(:list_users)%></i></option>
 			<% Member.where(project_id: @project.id).each do |member| %>
 				<% if member.user_id >0 then %>
-					<option value="<%= member.user_id %>"><%= User.find(member.user_id).name %></option>
+					<option value="user_<%=member.user_id%>"><%= User.find(member.user_id).name %></option>
 				<% end %>
 			<% end %>
 		</select>
@@ -18,14 +23,14 @@
 <% if @project.hidden_trackers.count > 0 then %>
 	<table class="list">
 		<tr>
-			<th><%= t :user %></th>
+			<th><%= t :user_or_role %></th>
 			<th><%= t :tracker %></th>
 			<th></th>
 		</tr>
 		
 		<% @project.hidden_trackers.each do |th|%>
 			<tr>
-				<td><%= th.user.name%></td>
+				<td><%= (th.role.nil? ? th.user.name : th.role.name) %></td>
 				<td><%= th.tracker%></td>
 				<td><%= link_to t(:delete), delete_tracker_hider_path(id: th.id, project_id: @project.id), class: 'btn', method: :delete, data: {confirm: "are you sure?"} %></>
 			</tr>

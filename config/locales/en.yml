@@ -8,7 +8,8 @@ en:
   tracker_hider_created: "The rule is created."
   tracker_hider_deleted: "The rule is deleted."
   submit_button: "Create"
-  user: "User"
+  user_or_role: "User or Role"
   tracker: "Tracker"
   delete: "Delete"
-
+  permission_manage_tracker_hiders: "Manage rules for tracker hiding"
+  project_module_tracker_hider: "Tracker hider"
