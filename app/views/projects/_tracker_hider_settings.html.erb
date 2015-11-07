@@ -1,0 +1,36 @@
+<p>
+	<%= form_tag(add_tracker_hider_path(@project), method: :post) do %>
+		<select name="user_id">
+			<% Member.where(project_id: @project.id).each do |member| %>
+				<% if member.user_id >0 then %>
+					<option value="<%= member.user_id %>"><%= User.find(member.user_id).name %></option>
+				<% end %>
+			<% end %>
+		</select>
+		<select name="tracker_id">
+			<%= @project.trackers.each do |t| %>
+				<option value="<%= t.id %>"><%= t.name %></option>
+			<% end %>
+		</select>
+		<input type="submit" value="Add this"/>
+	<% end %>
+</p>
+<% if @project.hidden_trackers.count > 0 then %>
+	<table class="list">
+		<tr>
+			<th><%= t :user %></th>
+			<th><%= t :tracker %></th>
+			<th></th>
+		</tr>
+		
+		<% @project.hidden_trackers.each do |th|%>
+			<tr>
+				<td><%= th.user.name%></td>
+				<td><%= th.tracker%></td>
+				<td><%= link_to t(:delete), delete_tracker_hider_path(id: th.id, project_id: @project.id), class: 'btn', method: :delete, data: {confirm: "are you sure?"} %></>
+			</tr>
+		<% end %>
+	</table>
+<% else %>
+		<h3><%= t :no_tracker_hiders_defined %></h3>
+<% end %>
