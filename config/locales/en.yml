@@ -13,3 +13,5 @@ en:
   delete: "Delete"
   permission_manage_tracker_hiders: "Manage rules for tracker hiding"
   project_module_tracker_hider: "Tracker hider"
+  list_roles: "Roles:"
+  list_users: "Users:"

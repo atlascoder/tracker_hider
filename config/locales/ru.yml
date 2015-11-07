@@ -12,3 +12,5 @@ ru:
   delete: "Удалить"
   permission_manage_tracker_hiders: "Управление правилами скрытия трекеров"
   project_module_tracker_hider: "Tracker hider"
+  list_roles: "Роли:"
+  list_users: "Пользователи:"
