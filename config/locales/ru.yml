@@ -1,0 +1,12 @@
+ru:
+  tracker_hider_caption: "Видимость задач"
+  no_tracker_hiders_defined: "Правил не заданы. Создайте правила!"
+  tracker_hider_already_exists: "Такое правило уже существует!"
+  tracker_hider_is_added: "Правило скрытия трекера создано."
+  tracker_hider_isnt_created_due_errors: "Произошла ошибка при создании записи."
+  tracker_hider_created: "Правило скрытия создано."
+  tracker_hider_deleted: "Правило скрытия удалено."
+  submit_button: "Создать"
+  user: "Пользователь"
+  tracker: "Трекер"
+  delete: "Удалить"

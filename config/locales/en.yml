@@ -1,10 +1,14 @@
 # English strings go here for Rails i18n
 en:
   tracker_hider_caption: "Tracker curtains"
-  no_tracker_hiders_defined: "There are no tracker curtains defined."
-  tracker_hider_already_exists: "Such tracker curtain exists already and has not added."
-  tracker_hider_is_added: "The tracker curtain is added."
-  tracker_hider_isnt_created_due_errors: "The tracker curtain is not created due some errors."
-  tracker_hider_created: "The tracker curtain is created."
-  tracker_hider_deleted: "The tracker curtain is deleted."
+  no_tracker_hiders_defined: "There are no rules defined."
+  tracker_hider_already_exists: "Such rule exists already and has not added."
+  tracker_hider_is_added: "The rule is added."
+  tracker_hider_isnt_created_due_errors: "The rule is not created due some errors."
+  tracker_hider_created: "The rule is created."
+  tracker_hider_deleted: "The rule is deleted."
+  submit_button: "Create"
+  user: "User"
+  tracker: "Tracker"
+  delete: "Delete"
 

@@ -12,7 +12,7 @@
 				<option value="<%= t.id %>"><%= t.name %></option>
 			<% end %>
 		</select>
-		<input type="submit" value="Add this"/>
+		<input type="submit" value="<%= t(:submit_button) || "Submit" %>"/>
 	<% end %>
 </p>
 <% if @project.hidden_trackers.count > 0 then %>

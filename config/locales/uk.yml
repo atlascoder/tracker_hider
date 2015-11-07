@@ -1,0 +1,12 @@
+uk:
+  tracker_hider_caption: "Видимість задач"
+  no_tracker_hiders_defined: "Немає правил укриття задач. Створить нові!"
+  tracker_hider_already_exists: "Таке правило вже існує!"
+  tracker_hider_is_added: "Правило створено!"
+  tracker_hider_isnt_created_due_errors: "Підчас створення правила виникла помилка."
+  tracker_hider_created: "Правило укриття створено."
+  tracker_hider_deleted: "Правило укриття видалено."
+  submit_button: "Створити"
+  user: "Користувач"
+  tracker: "Трекер"
+  delete: "Видалити"
