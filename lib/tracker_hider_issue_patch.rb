@@ -15,10 +15,10 @@ module TrackerHiderIssuePatch
   module ClassMethods
     
     def visible_condition_with_tracker_hider (user, *args)
-      user_id = user.id || 'NULL'
+      user_id = user.id || 2
       visible_condition_without_tracker_hider(user, *args) +
-        " AND (EXISTS(SELECT id FROM enabled_modules AS em WHERE em.project_id=issues.project_id AND em.name='tracker_hider') AND NOT EXISTS( " +
-          "SELECT * from hidden_trackers AS hts WHERE issues.tracker_id=hts.tracker_id AND issues.project_id=hts.project_id " +
+        " AND (NOT EXISTS( " +
+          "SELECT * FROM hidden_trackers AS hts INNER JOIN enabled_modules AS em ON hts.project_id=em.project_id WHERE issues.tracker_id=hts.tracker_id AND issues.project_id=hts.project_id " +
               " AND (" + 
       ## Match for selected user_id
                   " hts.user_id=#{user_id} " +
