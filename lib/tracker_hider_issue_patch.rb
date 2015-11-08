@@ -17,34 +17,20 @@ module TrackerHiderIssuePatch
     def visible_condition_with_tracker_hider (user, *args)
       user_id = user.id || 'NULL'
       visible_condition_without_tracker_hider(user, *args) +
-        " AND NOT EXISTS( "+
-          "SELECT * from hidden_trackers WHERE (" + 
+        " AND (EXISTS(SELECT id FROM enabled_modules AS em WHERE em.project_id=issues.project_id AND em.name='tracker_hider') AND NOT EXISTS( " +
+          "SELECT * from hidden_trackers AS hts WHERE issues.tracker_id=hts.tracker_id AND issues.project_id=hts.project_id " +
+              " AND (" + 
       ## Match for selected user_id
-              "((hidden_trackers.project_id IN (SELECT project_id FROM enabled_modules WHERE enabled_modules.name='tracker_hider'))" +
-              " AND issues.tracker_id=tracker_id" +
-              " AND issues.project_id=project_id" +
-              " AND user_id=#{user_id})" +
+                  " hts.user_id=#{user_id} " +
       ## Match for selected role_id (BUT not for Anonymous and Not Member)
-            " OR " +
-              "((hidden_trackers.project_id IN (SELECT project_id FROM enabled_modules WHERE enabled_modules.name='tracker_hider'))" +
-              " AND issues.tracker_id=tracker_id" +
-              " AND issues.project_id=project_id" +
-              " AND (hidden_trackers.role_id IN (SELECT role_id FROM member_roles WHERE member_id IN ("+
-                "SELECT id from members WHERE user_id=#{user_id} AND project_id=hidden_trackers.project_id" +
-              "))))" +
+                " OR ((hts.role_id NOT NULL) AND hts.role_id IN (SELECT mr.role_id FROM member_roles AS mr INNER JOIN members AS m ON mr.member_id=m.id " + 
+                  " WHERE m.user_id=#{user_id} AND m.project_id=issues.project_id)) " +
       ## Match for Anonymous user
-            " OR " +
-              "((hidden_trackers.project_id IN (SELECT project_id FROM enabled_modules WHERE enabled_modules.name='tracker_hider'))" +
-              " AND issues.tracker_id=tracker_id" +
-              " AND issues.project_id=project_id" +
-              " AND hidden_trackers.role_id='2' AND '#{user_id}'='2')" +
+                " OR (hts.role_id=2 AND 2=#{user_id})" +
       ## Match for Not Member user
-            " OR " +
-              "((hidden_trackers.project_id IN (SELECT project_id FROM enabled_modules WHERE enabled_modules.name='tracker_hider'))" +
-              " AND issues.project_id=project_id" +
-              " AND issues.project_id=project_id" +
-              " AND issues.tracker_id=tracker_id" +
-              " AND (hidden_trackers.role_id='1' AND NOT EXISTS(SELECT m.id FROM members as m INNER JOIN member_roles as mr ON m.id=mr.member_id WHERE m.project_id=hidden_trackers.project_id AND m.user_id='#{user_id}')))" +
+                " OR ((hts.role_id=1) AND NOT EXISTS(SELECT mr.role_id FROM member_roles AS mr INNER JOIN members AS m ON mr.member_id=m.id " + 
+                  " WHERE m.user_id=#{user_id} AND m.project_id=issues.project_id)) " +
+              ")" +
           ")" +
         ")"
     end
