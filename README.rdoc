@@ -7,13 +7,11 @@ INSTALLATION
 
 Release 0.1 has 2 branches:
 
-1. 	master - doesn't hide trackers on issues edit/create dialogs and on Project's overview panel
-	To get 'master' branch use: git clone -b master https://github.com/atlascoder/tracker_hider.git
-2. 	fix_trackers - hides trackers on issues edit/create dialogs and on Project's overview panel.
-	'fix_trackers' hides tracker also on issues dialogs and project panel, but due its not pretty
-	patches it was not merged to 'master'. Project overview will show Trackings as for current project,
-	ignoring subproject definitions.
-	To get 'fix_trackers' branch use: git clone -b fix_trackers https://github.com/atlascoder/tracker_hider.git
+* master - doesn't hide trackers on issues edit/create dialogs and on Project's overview panel.
+ To get 'master' branch use: git clone -b master https://github.com/atlascoder/tracker_hider.git
+
+* fix_trackers - hides trackers on issues edit/create dialogs and on Project's overview panel. 'fix_trackers' hides tracker also on issues dialogs and project panel, but due its not pretty patches it was not merged to 'master'. Project overview will show Trackings as for current project, ignoring subproject definitions.
+ To get 'fix_trackers' branch use: git clone -b fix_trackers https://github.com/atlascoder/tracker_hider.git
 
 
 Follow standard procedure to install the plugin: http://www.redmine.org/projects/redmine/wiki/Plugins .
