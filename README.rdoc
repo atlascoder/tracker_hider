@@ -1,10 +1,22 @@
 = tracker_hider
 
-The plugin is created to get a functionality allowing to hide issues of specified trackers from specified users within a project.
+The plugin is created to get a functionality allowing to hide issues of specified trackers from specified users or roles within a project.
+The plugin acts as a project's module.
 
 INSTALLATION
 
-Follow standard procedure to install the plugin.
+Release 0.1 has 2 branches:
+
+1. 	master - doesn't hide trackers on issues edit/create dialogs and on Project's overview panel
+	To get 'master' branch use: git clone -b master https://github.com/atlascoder/tracker_hider.git
+2. 	fix_trackers - hides trackers on issues edit/create dialogs and on Project's overview panel.
+	'fix_trackers' hides tracker also on issues dialogs and project panel, but due its not pretty
+	patches it was not merged to 'master'. Project overview will show Trackings as for current project,
+	ignoring subproject definitions.
+	To get 'fix_trackers' branch use: git clone -b fix_trackers https://github.com/atlascoder/tracker_hider.git
+
+
+Follow standard procedure to install the plugin: http://www.redmine.org/projects/redmine/wiki/Plugins .
 Migration is required.
 
 USE
@@ -13,11 +25,10 @@ USE
 2. Enable the module 'Tracker hider' in selected projects
 3. Manage hiding rules in Tabview 'Tracker curtains' in Project settings
 
-
 The plugin was created with the environment:
 
-  Redmine version                3.0.4.stable
-  Ruby version                   2.2.1-p85 (2015-02-26) [x86_64-linux]
-  Rails version                  4.2.3
+  Redmine version                3.0.4.stable (production also checked out: 3.1.1)
+  Ruby version                   2.2.1-p85 (2015-02-26) [x86_64-linux] (production checked out: 2.0.0)
+  Rails version                  4.2.3 (production also checked out: 4.2.4)
 
 but due its simplicicty it highly possible to use in various configurations.
