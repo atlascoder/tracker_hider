@@ -1,6 +1,6 @@
 # Plugin's routes
 # See: http://guides.rubyonrails.org/routing.html
 
-  get ":project_id/list_tracker_hiders", :to => "tracker_hider#list", :as => 'list_tracker_hider'
-  post ":project_id/add_tracker_hider", :to => "tracker_hider#add_hider", :as => 'add_tracker_hider'
-  delete ":project_id/delete_tracker_hider/:id", :to => "tracker_hider#remove", :as => 'delete_tracker_hider'
+  get "/tracker_hider_settings", :to => "tracker_hider#settings", :as => 'tracker_hider_settings'
+  post "/add_tracker_hider_global_rule", :to => "tracker_hider#add_global_rule", :as => 'add_tracker_hider_global_rule'
+  delete "/drop_tracker_hider_global_rule", :to => "tracker_hider#drop_global_rule", :as => 'drop_tracker_hider_global_rule'

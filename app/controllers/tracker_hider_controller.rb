@@ -1,66 +1,43 @@
 class TrackerHiderController < ApplicationController
   
-  before_filter :find_optional_project
-  before_filter :authorize
+  before_filter :require_admin
   unloadable
-  
-  def list
-    @hidden_trackers = HiddenTracker.where(project_id: params[:project_id])
-  end
-  
-  def add_hider
-    if params[:object_id] =~ /user_(\d+)/ then
-      user_id = $1
-      
-      if HiddenTracker.where(project_id: @project.id, tracker_id: params[:tracker_id], user_id: user_id).empty? then 
-        ht = HiddenTracker.new
-        ht.project = @project
-        ht.user = User.find(user_id)
-        ht.tracker = Tracker.find(params[:tracker_id])
-        if ht.save then
-          flash[:notice] = t(:tracker_hider_created)
-        else
-          flash[:alert] = t(:tracker_hider_isnt_created_due_errors)
-        end
-      else
-        flash[:alert] = t(:tracker_hider_already_exists)
-      end
-      
-    elsif params[:object_id] =~ /role_(\d+)/ then
-      role_id = $1
+ 
 
-      if HiddenTracker.where(project_id: @project.id, tracker_id: params[:tracker_id], role_id: role_id).empty? then 
-        ht = HiddenTracker.new
-        ht.project = @project
-        ht.role = Role.find(role_id)
-        ht.tracker = Tracker.find(params[:tracker_id])
-        if ht.save then
-          flash[:notice] = t(:tracker_hider_created)
-        else
-          flash[:alert] = t(:tracker_hider_isnt_created_due_errors)
-        end
+  def settings
+      @global_rules = HiddenTracker.where('project_id IS NULL AND user_id IS NULL AND role_id IS NOT NULL');
+      flash[:notice] = t(:no_rules_defined) if @global_rules.empty?
+  end
+  
+  def add_global_rule
+    @global_rules = []
+    role_id = params[:role_id].to_i
+    tracker_id = params[:tracker_id].to_i
+    if role_id>0 && tracker_id>0 then
+      if HiddenTracker.where('user_id IS NULL AND project_id IS NULL AND tracker_id =? AND role_id = ?', tracker_id, role_id).empty? then
+        HiddenTracker.new(tracker_id: tracker_id, role_id: role_id).save
+        flash[:notice] = t(:rule_was_created)
       else
-        flash[:alert] = t(:tracker_hider_already_exists)
+        flash[:alert] = t(:the_rule_alredy_exists)
       end
-      
     else
-      flash[:alert] = t(:tracker_hider_isnt_created_due_errors)
+      flash[:alert] = t(:the_rule_is_bad)
+    end 
+    @global_rules = HiddenTracker.where('project_id IS NULL AND user_id IS NULL AND role_id IS NOT NULL');
+    redirect_to :tracker_hider_settings
+  end
+  
+  def drop_global_rule
+    if User.current.admin? then
+      if params[:id].to_i > 0 && HiddenTracker.find(params[:id]).destroy then
+        flash[:notice] = t(:rule_was_destroyed)
+      else
+        flash[:notice] = t(:something_went_wrong)
+      end
+    else
+      flash[:alert] = t(:you_cant_do_this)
     end
-    
-    redirect_to settings_project_path(id: params[:project_id], tab: 'tracker_hider')
-  end
-  
-  def remove
-    HiddenTracker.find(params[:id]).destroy
-    flash[:notice] = t(:tracker_hider_deleted)
-    redirect_to settings_project_path(id: params[:project_id], tab: 'tracker_hider')
-  end
-  
-private
-  
-  def find_optional_project
-    @project = Project.find(params[:project_id])
-    super
+    redirect_to :tracker_hider_settings
   end
   
 end

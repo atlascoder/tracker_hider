@@ -1,16 +1,14 @@
 require_dependency 'tracker_hider_issue_patch'
-require_dependency 'tracker_hider_project_settings_patch'
 require_dependency 'tracker_hider_project_patch'
 
 Redmine::Plugin.register :tracker_hider do
   name 'Tracker Hider plugin for Redmine'
   author 'Anton Titkov'
-  description 'The plugin allows to hide specified tracker for cpecified users within a project'
-  version '0.0.1'
+  description 'The plugin allows to hide specified tracker for specified roles globally'
+  version '0.2.0'
   url 'https://github.com/atlascoder/tracker_hider'
   author_url 'https://github.com/atlascoder'
+
+  menu :admin_menu, :trackers_visibility, {:controller => 'tracker_hider', :action => 'settings'}, :caption => :label_tracker_hider
   
-  project_module :tracker_hider do
-    permission :manage_tracker_hiders, {:tracker_hider => [:add_hider, :remove]}
-  end
 end

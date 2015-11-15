@@ -1,0 +1,43 @@
+<h2><%= t :headline_tracker_hider %></h2>
+<p>
+	<%= form_tag(add_tracker_hider_global_rule_path, method: :post) do %>
+		<select name="role_id">
+			<% Role.all.each do |role| %>
+				<option value="<%=role.id%>"><%= role.name %></option>
+			<% end %>
+		</select>
+		<select name="tracker_id">
+			<%= Tracker.all.each do |t| %>
+				<option value="<%= t.id %>"><%= t.name %></option>
+			<% end %>
+		</select>
+		<input type="submit" value="<%= t(:submit_button) || "Submit" %>"/>
+	<% end %>
+</p>
+<% if !@global_rules.empty? then %>
+	<table>
+		<tr>
+			<th>
+				<%= t :tracker %>
+			</th>
+			<th>
+				<%= t :role %>
+			</th>
+			<th>
+			</th>
+		</tr>
+		<% @global_rules.each do |rule| %>
+		<tr>
+			<td>
+				<%= Role.find(rule.role_id).name %>
+			</td>
+			<td>
+				<%= Tracker.find(rule.tracker_id).name %>
+			</td>
+			<td>
+				<%= link_to t(:delete), drop_tracker_hider_global_rule_path(id: rule.id), class: 'btn', method: :delete, data: {confirm: "are you sure?"} %>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>

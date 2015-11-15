@@ -13,22 +13,22 @@ module TrackerHiderProjectPatch
       end
       
       def trackers
+        user_id = User.current.id || 2
         super.where(
           "NOT EXISTS( " +
-            "SELECT * FROM hidden_trackers AS hts INNER JOIN enabled_modules AS em ON hts.project_id=em.project_id WHERE hts.tracker_id=trackers.id AND hts.project_id=#{id} " +
-              " AND (" + 
-      ## Match for selected user_id
-                  " hts.user_id=#{User.current.id} " +
-      ## Match for selected role_id (BUT not for Anonymous and Not Member)
-                " OR ((hts.role_id IS NOT NULL) AND hts.role_id IN (SELECT mr.role_id FROM member_roles AS mr INNER JOIN members AS m ON mr.member_id=m.id " + 
-                  " WHERE m.user_id=#{User.current.id} AND m.project_id=#{id})) " +
-      ## Match for Anonymous user
-                " OR (hts.role_id=2 AND 2=#{User.current.id})" +
-      ## Match for Not Member user (Anonymous isn't a member as well, yeah)
-                " OR ((hts.role_id=1) AND NOT EXISTS(SELECT mr.role_id FROM member_roles AS mr INNER JOIN members AS m ON mr.member_id=m.id " + 
-                  " WHERE m.user_id=#{User.current.id} AND m.project_id=#{id})) " +
-              ")" +
-          ")"
+            "SELECT * FROM hidden_trackers AS hts " + 
+              " WHERE trackers.id=hts.tracker_id "+
+              " AND hts.project_id IS NULL "+
+              " AND hts.user_id IS NULL "+
+              " AND hts.role_id IS NOT NULL " +
+        ## Match for selected role_id (BUT not for Anonymous and Not Member)
+              " AND ((hts.role_id IN (SELECT mr.role_id FROM member_roles AS mr INNER JOIN members AS m ON mr.member_id=m.id " + 
+                    " WHERE m.user_id=#{user_id} AND m.project_id=#{id})) " +
+        ## Match for Anonymous role
+              " OR (hts.role_id=2 AND 2=#{user_id})" +
+        ## Match for Not Member user (Anonymous isn't a member as well, yeah)
+              " OR (hts.role_id=1 AND NOT EXISTS(SELECT mr.role_id FROM member_roles AS mr INNER JOIN members AS m ON mr.member_id=m.id " + 
+               " WHERE m.user_id=#{user_id} AND m.project_id=#{id}))))"
         ).order(:position)
       end
       
