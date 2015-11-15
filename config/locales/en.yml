@@ -15,3 +15,14 @@ en:
   project_module_tracker_hider: "Tracker hider"
   list_roles: "Roles:"
   list_users: "Users:"
+  
+## branch global_roles  
+  label_tracker_hider: "Tracker visibility"
+  headline_tracker_hider: "Rules for tracker to be hidden"
+  no_rules_defined: "Any rule isn't defined yet. Create a new one!"
+  rule_was_created: "The rule was created sucessfully."
+  the_rule_alredy_exists: "The rule exists already and creation was declined."
+  the_rule_is_bad: "Someting ist wrong with the rule format. Operation was declined."
+  rule_was_destroyed: "The rule was destroyed sucessfuly."
+  something_went_wrong: "Someting went wrong."
+  

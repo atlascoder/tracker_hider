@@ -14,3 +14,15 @@ uk:
   project_module_tracker_hider: "Tracker hider"
   list_roles: "Ролі:"
   list_users: "Користувачі:"  
+
+## branch global_roles  
+  label_tracker_hider: "Укриття трекерів"
+  headline_tracker_hider: "Правила укриття трекерів"
+  no_rules_defined: "Правила досі не визначені. Створіть нові правила!"
+  rule_was_created: "Правило було створено успішно."
+  the_rule_alredy_exists: "Правило вже існує та створення нового правила було скасовано."
+  the_rule_is_bad: "Формат правила містить помилки. Операцію скасовано."
+  rule_was_destroyed: "Правило було видалено успішно."
+  something_went_wrong: "Виникла помилка ошибка."
+  role: "Роль"
+  

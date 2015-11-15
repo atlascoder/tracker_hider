@@ -14,3 +14,14 @@ ru:
   project_module_tracker_hider: "Tracker hider"
   list_roles: "Роли:"
   list_users: "Пользователи:"
+  
+## branch global_roles  
+  label_tracker_hider: "Скрытие трекеров"
+  headline_tracker_hider: "Правила для скрытия трекеров"
+  no_rules_defined: "Правила пока не определены. Создайте новые правила!"
+  rule_was_created: "Правило было успешно создано."
+  the_rule_alredy_exists: "Правило уже существет и создание нового правила было отменено."
+  the_rule_is_bad: "Формат правила содержит ошибки. Операция отменена."
+  rule_was_destroyed: "Правило было удалено успешно."
+  something_went_wrong: "Произошла ошибка."
+  role: "Роль"

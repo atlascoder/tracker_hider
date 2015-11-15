@@ -28,14 +28,10 @@ class TrackerHiderController < ApplicationController
   end
   
   def drop_global_rule
-    if User.current.admin? then
-      if params[:id].to_i > 0 && HiddenTracker.find(params[:id]).destroy then
-        flash[:notice] = t(:rule_was_destroyed)
-      else
-        flash[:notice] = t(:something_went_wrong)
-      end
+    if params[:id].to_i > 0 && HiddenTracker.find(params[:id]).destroy then
+      flash[:notice] = t(:rule_was_destroyed)
     else
-      flash[:alert] = t(:you_cant_do_this)
+      flash[:alert] = t(:something_went_wrong)
     end
     redirect_to :tracker_hider_settings
   end
