@@ -25,4 +25,5 @@ en:
   the_rule_is_bad: "Someting ist wrong with the rule format. Operation was declined."
   rule_was_destroyed: "The rule was destroyed sucessfuly."
   something_went_wrong: "Someting went wrong."
+  role: "Role"
   
