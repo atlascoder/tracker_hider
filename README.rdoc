@@ -1,27 +1,32 @@
 = tracker_hider
 
 The plugin is created to get a functionality allowing to hide issues of specified trackers from specified users or roles within a project.
-The plugin acts as a project's module.
+
+This is a version that allows to create project level rules for tracker to be hidden for certain roles or users.
+The plugin acts as a project module and thus should be enabled for a project to get its functionaliity.
+These rules are managed on the Project settings level.
+  
+This version of plugin hides issues and trackers as well.
+Version from branch 'master' doesn't hide tralckers and if you need it you should swithc to the branch 'master'.
 
 INSTALLATION
 
-Release 0.1 has 2 branches:
+This plugin is the 'fix_trackers' branch of repository https://github.com/atlascoder/tracker_hider
+To install go to <...>/plugins and execute
+  git clone -b fix_trackers https://github.com/atlascoder/tracker_hider.git
 
-* master - doesn't hide trackers on issues edit/create dialogs and on Project's overview panel.
- To get 'master' branch use: git clone -b master https://github.com/atlascoder/tracker_hider.git
+Generally follow the standard procedure to install the Redmine plugin: http://www.redmine.org/projects/redmine/wiki/Plugins .
+Single migration is required.
 
-* fix_trackers - hides trackers on issues edit/create dialogs and on Project's overview panel. 'fix_trackers' hides tracker also on issues dialogs and project panel, but due its not pretty patches it was not merged to 'master'. Project overview will show Trackings as for current project, ignoring subproject definitions.
- To get 'fix_trackers' branch use: git clone -b fix_trackers https://github.com/atlascoder/tracker_hider.git
+Besides this version exist also 2 branches. Please read relevant to a branch Readme on the https://github.com/atlascoder/tracker_hider.
 
-
-Follow standard procedure to install the plugin: http://www.redmine.org/projects/redmine/wiki/Plugins .
-Migration is required.
+You can replace versions of the plugin between branches without migrations. Different version use the same table simultanousely without breaks. 
 
 USE
 
-1. Enable permittion ('Roles ad permissions' in Administration panel) for your manager to make him able to make hidings for trackers
-2. Enable the module 'Tracker hider' in selected projects
-3. Manage hiding rules in Tabview 'Tracker curtains' in Project settings
+1. Go to Administration -> Roles and Permissions and grant permittion to a manager role to manage the hiding rules.
+2. Enable module for selected project using its Settings page and Tracker hiding tab.
+2. Create or destroy rules on the page.
 
 The plugin was created with the environment:
 

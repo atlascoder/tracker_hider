@@ -7,7 +7,7 @@
 			<% end %>
 				<option value="users" disabled="true"><i><%= t(:list_users)%></i></option>
 			<% Member.where(project_id: @project.id).each do |member| %>
-				<% if member.user_id >0 then %>
+				<% if User.where(id: member.user_id).first.is_a?(User) then %>
 					<option value="user_<%=member.user_id%>"><%= User.find(member.user_id).name %></option>
 				<% end %>
 			<% end %>
