@@ -21,9 +21,9 @@ module TrackerHiderProjectPatch
     def my_roles_in_project
       m_s = []
       if User.current.anonymous? then
-        m_s.push
+        m_s.push 2
       else
-        m_s = members.where(user: User.current).collect{|r| r.id}
+        m_s = members.where(user_id: User.current.id).collect{|r| r.id}
       end
       m_s.empty? ? [1] : m_s 
     end
