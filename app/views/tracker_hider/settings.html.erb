@@ -18,10 +18,10 @@
 	<table class="list">
 		<tr>
 			<th>
-				<%= t :tracker %>
+				<%= t :role %>
 			</th>
 			<th>
-				<%= t :role %>
+				<%= t :tracker %>
 			</th>
 			<th>
 			</th>
@@ -29,10 +29,10 @@
 		<% @global_rules.each do |rule| %>
 		<tr>
 			<td>
-				<%= Role.find(rule.tracker_id).name %>
+				<%= Role.find(rule.role_id).name %>
 			</td>
 			<td>
-				<%= Tracker.find(rule.role_id).name %>
+				<%= Tracker.find(rule.tracker_id).name %>
 			</td>
 			<td>
 				<%= link_to t(:delete), drop_tracker_hider_global_rule_path(id: rule.id), class: 'btn', method: :delete, data: {confirm: "are you sure?"} %>

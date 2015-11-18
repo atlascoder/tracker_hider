@@ -1,5 +1,6 @@
 require_dependency 'tracker_hider_issue_patch'
 require_dependency 'tracker_hider_project_patch'
+require_dependency 'hooks/base_layout_hook_for_css'
 
 Redmine::Plugin.register :tracker_hider do
   name 'Tracker Hider plugin for Redmine'

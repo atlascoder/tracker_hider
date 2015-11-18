@@ -17,7 +17,7 @@ en:
   list_users: "Users:"
   
 ## branch global_roles  
-  label_tracker_hider: "Tracker visibility"
+  label_tracker_hider: "Trackers visibility"
   headline_tracker_hider: "Rules for tracker to be hidden"
   no_rules_defined: "Any rule isn't defined yet. Create a new one!"
   rule_was_created: "The rule was created sucessfully."
