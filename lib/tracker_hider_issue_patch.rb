@@ -4,11 +4,29 @@ module TrackerHiderIssuePatch
   def self.included(base)
     
     base.extend(ClassMethods)
+    base.send(:include, InstanceMethods)
     
     base.class_eval do
+
+      alias_method :visible_without_th, :visible?
+      alias_method :visible?, :visible_with_th
+      
       class << self
         alias_method_chain :visible_condition, :tracker_hider
       end
+    end
+  end
+
+  module InstanceMethods
+    def visible_with_th(u=nil)
+      if project.enabled_modules.collect{|pm| pm.name}.include? 'tracker_hider' then
+        usr = u || User.current
+        users_roles = usr.members.where(project_id: project.id).collect{|m| MemberRole.find(m.id).role_id}
+        hf = HiddenTracker.where("tracker_id='#{tracker.id}' AND project_id='#{project.id}' AND ((user_id='#{usr.id}') OR (role_id IN (#{users_roles.join(',')})))").present?
+        return (hf ? false : visible_without_th(usr))
+      else
+        return visible_without_th(usr)
+      end  
     end
   end
   
