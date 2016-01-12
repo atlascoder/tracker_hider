@@ -20,7 +20,7 @@ module TrackerHiderIssuePatch
   module InstanceMethods
     def visible_with_th(u=nil)
       usr = u || User.current
-      users_roles = usr.members.where(project_id: project.id).collect{|m| MemberRole.find(m.id).role_id}
+      users_roles = usr.members.where(project_id: project.id).collect{|m| MemberRole.where(member_id: m.id).first.role_id}
       hf = HiddenTracker.where("tracker_id='#{tracker.id}' AND project_id IS NULL AND user_id IS NULL AND(role_id IN (#{users_roles.join(',')}))").present?
       return (hf ? false : visible_without_th(usr))
     end
