@@ -29,7 +29,7 @@ module TrackerHiderIssuePatch
 		roles_check_clause = "FALSE"
 	end
 
-        hf = HiddenTracker.where("tracker_id='#{tracker.id}' AND project_id='#{project.id}' AND ((user_id='#{usr.id}') OR roles_check_clause)").present?
+        hf = HiddenTracker.where("tracker_id='#{tracker.id}' AND project_id='#{project.id}' AND ((user_id='#{usr.id}') OR #{roles_check_clause})").present?
         return (hf ? false : visible_without_th(usr))
       else
         return visible_without_th(usr)
