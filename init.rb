@@ -6,7 +6,7 @@ Redmine::Plugin.register :tracker_hider do
   name 'Tracker Hider plugin for Redmine'
   author 'Anton Titkov'
   description 'The plugin allows to hide specified tracker for specified roles globally'
-  version '0.2.0'
+  version '0.1.0'
   url 'https://github.com/atlascoder/tracker_hider'
   author_url 'https://github.com/atlascoder'
 
